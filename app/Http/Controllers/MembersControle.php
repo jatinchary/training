@@ -34,4 +34,23 @@ class MembersControle extends Controller
         $employee->delete();
         return redirect('list');
     }
+
+    function showData($EmpId){
+        $employee =Employee::find($EmpId);
+        return view('edit', ['employee' => $employee]);
+    }
+
+    function updateData(Request $req){
+        // dd('aws');
+        $employee = Employee::find($req->EmpId);
+        $employee->FirstName = $req->FirstName;
+        $employee->LastName = $req->LastName;
+        $employee->Email = $req->Email;
+        $employee->PhoneNo = $req->PhoneNo;
+        $employee->RoleId = $req->RoleId;
+        $employee->save();
+        
+        return redirect('list');
+        
+    }
 }

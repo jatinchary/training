@@ -34,3 +34,7 @@ Route::post('addemp',  [MembersControle::class, 'addEmp']);
 Route::view('addemp', 'addEmployee');
 // delete items from emp table 
 Route::get('delete/{EmpId}', [MembersControle::class, 'deleteEmp']);
+//display data in the table of the employees list
+Route::get('edit/{EmpId}', [MembersControle::class, 'showData']);
+//update data in the table
+Route::post('edit', [MembersControle::class, 'updateData']);
