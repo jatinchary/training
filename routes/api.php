@@ -18,7 +18,7 @@ Route::get('users/{EmpId?}',[dummyAPI::class, 'getEmployees']);
 Route::post('add',[dummyAPI::class, 'add']);
 
 //put toute to update data in employees table
-Route::put('update',[dummyAPI::class, 'update']);
+Route::put('update/{EmpId?}',[dummyAPI::class, 'update']);
 
 // delete in employee table
-Route::delete('delete/{EmpId}',[dummyAPI::class, 'delete']);
+Route::delete('delete/{EmpId?}',[dummyAPI::class, 'delete']);

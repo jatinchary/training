@@ -49,6 +49,7 @@ class MembersControle extends Controller
         $employee->Email = $req->Email;
         $employee->PhoneNo = $req->PhoneNo;
         $employee->RoleId = $req->RoleId;
+        
         $employee->save();
         
         return redirect('list');

@@ -17,9 +17,15 @@ class dummyAPI extends Controller
     }
 
     function add(Request $req){
-
-        $employee = new Employee();
-        // $employee->EmpId = $req->EmpId;
+        $requiredFields = [ 'FirstName', 'LastName', 'Email', 'PhoneNo', 'RoleId'];
+        foreach ($requiredFields as $field) {
+            if (!$req->has($field)) {
+                return ["result" => "$field not entered"];
+            }
+        }
+    
+        $employee =new Employee();
+        
         $employee->FirstName = $req->FirstName;
         $employee->LastName = $req->LastName;
         $employee->Email = $req->Email;
@@ -35,9 +41,19 @@ class dummyAPI extends Controller
     }
 
 
-    function update(Request $req){
+    function update(Request $req , $EmpId){
 
-        $employee = Employee::find($req->EmpId);
+        $requiredFields = [ 'FirstName', 'LastName', 'Email', 'PhoneNo', 'RoleId'];
+    foreach ($requiredFields as $field) {
+        if (!$req->has($field)) {
+            return ["result" => "$field not entered"];
+        }
+    }
+
+    $employee = Employee::find($EmpId);
+    if (!$employee) {
+        return ["result" => "Employee not found"];
+    }
         // $employee->EmpId = $req->EmpId;
         $employee->FirstName = $req->FirstName;
         $employee->LastName = $req->LastName;
@@ -53,16 +69,22 @@ class dummyAPI extends Controller
 
     }
 } 
-  function delete($EmpId){
-    $employee = Employee::find($EmpId);
-    $result = $employee->delete();
-    if ($result){
-        return ["result" => "done"];
-        } else{
-         return ["result" => $result."error"];
+public function delete($EmpId = null) {
+    // Check if EmpId is null or not provided
+    if ($EmpId === null) {
+        return ["result" => "Please provide an employee ID"];
     }
-  }
-
+    $employee = Employee::find($EmpId);
+    if (!$employee) {
+        return ["result" => "Employee not found"];
+    }
+    $result = $employee->delete();
+    if ($result) {
+        return ["result" => "done"];
+    } else {
+        return ["result" => "error deleting data"];
+    }
+}
 }
 
 
