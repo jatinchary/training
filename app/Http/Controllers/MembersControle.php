@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Employee;
 
 class MembersControle extends Controller
@@ -52,5 +53,11 @@ class MembersControle extends Controller
         
         return redirect('list');
         
+    }
+
+
+    function show(){
+        // dd(jgvgud);
+        return DB::table('employees')->get();
     }
 }

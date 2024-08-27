@@ -38,3 +38,8 @@ Route::get('delete/{EmpId}', [MembersControle::class, 'deleteEmp']);
 Route::get('edit/{EmpId}', [MembersControle::class, 'showData']);
 //update data in the table
 Route::post('edit', [MembersControle::class, 'updateData']);
+
+
+
+
+Route::get('show' ,[MembersControle::class,'show']);
