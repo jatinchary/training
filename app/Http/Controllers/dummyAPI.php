@@ -41,34 +41,35 @@ class dummyAPI extends Controller
     }
 
 
-    function update(Request $req , $EmpId){
+    function update(Request $req , $EmpId=null){
 
-        $requiredFields = [ 'FirstName', 'LastName', 'Email', 'PhoneNo', 'RoleId'];
-    foreach ($requiredFields as $field) {
-        if (!$req->has($field)) {
-            return ["result" => "$field not entered"];
+        if ($EmpId === null) {
+            return ["result" => "Please provide an employee ID"];
         }
-    }
-
-    $employee = Employee::find($EmpId);
-    if (!$employee) {
-        return ["result" => "Employee not found"];
-    }
-        // $employee->EmpId = $req->EmpId;
+        $requiredFields = ['FirstName', 'LastName', 'Email', 'PhoneNo', 'RoleId'];
+        foreach ($requiredFields as $field) {
+            if (!$req->has($field)) {
+                return ["result" => "$field not entered"];
+            }
+        }
+    
+        $employee = Employee::find($EmpId);
+        if (!$employee) {
+            return ["result" => "Employee not found"];
+        }
         $employee->FirstName = $req->FirstName;
         $employee->LastName = $req->LastName;
         $employee->Email = $req->Email;
         $employee->PhoneNo = $req->PhoneNo;
         $employee->RoleId = $req->RoleId;
-       $result = $employee->save();
-       if ($result){
-        return ["result" => "done"];
-        }else{
-         return ["result" => $result."error"];
-    
-
+        $result = $employee->save();
+        if ($result){
+            return ["result" => "done"];
+        } else {
+            return ["result" => "error"]; 
+        }
     }
-} 
+    
 public function delete($EmpId = null) {
     // Check if EmpId is null or not provided
     if ($EmpId === null) {
